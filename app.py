@@ -54,6 +54,15 @@ def add_event():
 
     return redirect('/')
 
+@app.route('/delete_event/<int:event_id>', methods=['POST'])
+def delete_event(event_id):
+    conn = sqlite3.connect('event.db')
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Events WHERE event_id = ?", (event_id,))
+    conn.commit()
+    conn.close()
+    return redirect('/')
+
 @app.route('/register')
 def register():
     conn = sqlite3.connect(db_path)
